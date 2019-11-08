@@ -52,8 +52,8 @@ func connect() {
 	cmd.Stdin = os.Stdin
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
-	error := cmd.Run()
-	check(error)
+	err = cmd.Run()
+	check(err)
 
 }
 
