@@ -81,7 +81,9 @@ func findWidths(servers [][]string) []string {
 func prettyPrint(name string, user string, ip string, widths []string) {
 	col1, _ := strconv.Atoi(widths[0])
 	col2, _ := strconv.Atoi(widths[1])
-	x := fmt.Sprintf("%-"+fmt.Sprintf("%d", col1)+"s %-"+fmt.Sprintf("%d", col2)+"s %s", name, user, ip)
+	col1Width := fmt.Sprintf("%d", col1)
+	col2Width := fmt.Sprintf("%d", col2)
+	x := fmt.Sprintf("%-"+col1Width+"s %-"+col2Width+"s %s", name, user, ip)
 	fmt.Println(x)
 }
 
@@ -104,7 +106,7 @@ func list() {
 		name := servers[i][0]
 		user := servers[i][1]
 		ip := servers[i][2]
-		prettyPrint(name, user, ip, widths)
+		pretty(name, user, ip, widths)
 	}
 }
 
