@@ -106,7 +106,7 @@ func list() {
 		name := servers[i][0]
 		user := servers[i][1]
 		ip := servers[i][2]
-		pretty(name, user, ip, widths)
+		prettyPrint(name, user, ip, widths)
 	}
 }
 
