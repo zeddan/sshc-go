@@ -106,7 +106,65 @@ func list() {
 	}
 }
 
+func promptAdd(value string, str string) string {
+	if len(str) == 0 {
+		fmt.Print(fmt.Sprintf("%s: ", str))
+	} else {
+		fmt.Print(fmt.Sprintf("%s (%s): ", str, value))
+	}
+	reader := bufio.NewReader(os.Stdin)
+	text, _ := reader.ReadString('\n')
+	tmpValue := strings.TrimSuffix(text, "\n")
+	if len(tmpValue) == 0 {
+		return value
+	} else {
+		return tmpValue
+	}
+}
+
+func addInstance(tmpName string, tmpUser string, tmpIP string) {
+	name := ""
+	if len(tmpName) != 0 {
+		name = tmpName
+	}
+	name = promptAdd(name, "Name")
+
+	user := ""
+	if len(tmpUser) != 0 {
+		user = tmpUser
+	}
+	user = promptAdd(user, "User")
+
+	ip := ""
+	if len(tmpIP) != 0 {
+		ip = tmpIP
+	}
+	ip = promptAdd(ip, "IP")
+
+	fmt.Print(fmt.Sprintf("Add %s for %s@%s? (Y/n) ", name, user, ip))
+
+	reader := bufio.NewReader(os.Stdin)
+	text, _ := reader.ReadString('\n')
+	confirm := strings.TrimSuffix(text, "\n")
+
+	if confirm == "y" || confirm == "Y" || confirm == "" {
+		filename := "/Users/zeddan/.config/sshc/instances"
+		f, err := os.OpenFile(filename, os.O_APPEND|os.O_WRONLY, 0600)
+		check(err)
+		defer f.Close()
+		text = fmt.Sprintf("%s,%s,%s", name, user, ip)
+		if _, err = f.WriteString(text); err != nil {
+			panic(err)
+		}
+		fmt.Println("OK!")
+	} else {
+		addInstance(name, user, ip)
+	}
+
+}
+
 func main() {
 	//connect()
-	list()
+	//list()
+	addInstance("", "", "")
 }
