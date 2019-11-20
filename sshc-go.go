@@ -164,7 +164,14 @@ func addInstance(tmpName string, tmpUser string, tmpIP string) {
 }
 
 func main() {
-	//connect()
-	//list()
-	addInstance("", "", "")
+	if len(os.Args) == 1 {
+		connect()
+	} else {
+		switch os.Args[1] {
+		case "list":
+			list()
+		case "add":
+			addInstance("", "", "")
+		}
+	}
 }
