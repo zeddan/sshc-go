@@ -18,4 +18,4 @@ $ sudo cp sshc /usr/local/bin
 
 
 ## License
-No
+Use it any way you find meaningful or altruistic.
